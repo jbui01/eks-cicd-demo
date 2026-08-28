@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  # These two are placeholders. The pipeline always overrides them with
+  # --set image.repository=... --set image.tag=... using the real ECR image
+  # that was just built, so you never need to edit this file by hand.
+  repository: PLACEHOLDER_ECR_REPO_URI
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000

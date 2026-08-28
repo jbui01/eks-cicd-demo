@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Helm...
+      - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      - chmod +x get_helm.sh
+      - ./get_helm.sh
+  pre_build:
+    commands:
+      - echo Connecting kubectl/Helm to the EKS cluster...
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_DEFAULT_REGION
+      - IMAGE_TAG=$(cat image-tag.txt)
+  build:
+    commands:
+      - echo Deploying with Helm...
+      - >
+        helm upgrade --install eks-cicd-demo ./helm/eks-cicd-demo
+        --set image.repository=$ECR_REPO_URI
+        --set image.tag=$IMAGE_TAG
+        --wait --timeout 5m
+  post_build:
+    commands:
+      - echo Deployment complete. Current release status:
+      - helm status eks-cicd-demo

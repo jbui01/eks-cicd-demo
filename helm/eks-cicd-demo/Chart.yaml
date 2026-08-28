@@ -1,0 +1,6 @@
+apiVersion: v2
+name: eks-cicd-demo
+description: Helm chart for the eks-cicd-demo Flask app
+type: application
+version: 0.1.0
+appVersion: "1.0"
