@@ -18,5 +18,5 @@ phases:
       - helm upgrade --install eks-cicd-demo ./helm/eks-cicd-demo --set image.repository=$ECR_REPO_URI --set image.tag=$IMAGE_TAG --wait --timeout 5m
   post_build:
     commands:
-      - echo Deployment complete. Current release status:
+      - echo Deployment complete. Current release status
       - helm status eks-cicd-demo
