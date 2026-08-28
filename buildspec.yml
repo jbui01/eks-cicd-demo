@@ -21,3 +21,4 @@ artifacts:
   files:
     - image-tag.txt
     - helm/**/*
+    - buildspec-deploy.yml
